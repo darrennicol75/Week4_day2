@@ -28,9 +28,19 @@ post '/pizza-orders' do
   erb(:create)
 end
 
+# DELETE- deletes a pizza order from the database.
+post '/pizza-orders/:id/delete' do
+ @order = PizzaOrder.find(params[:id])
+ @order.delete()
+ erb(:delete)
+ # redirect to '/pizza-orders'
+end
+# If using the redirect drop the @'s from the order.
+  # erb(:delete)
+
 # EDIT- display a form to edit a pizza orders details
 get '/pizza-orders/:id/edit' do
-  @order = PizzaOrder.find( parama[:id] )
+  order = PizzaOrder.find( params[:id] )
   erb(:edit)
 end
 # UPDATE- updates a database entry for the edited pizza order
@@ -47,11 +57,3 @@ get '/pizza-orders/:id' do
   erb(:show)
 end
 # remember you can use a binding.pry to check for errors.
-
-# DELETE- deletes a pizza order from the database.
-post '/pizza-orders/:id/delete' do
-  order =PizzaOrder.find( params[:id])
-  order.delete()
-  erb(:delete)
-  # redirect to '/pizza-orders'
-end
